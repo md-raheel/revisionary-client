@@ -4,19 +4,19 @@ import { sidebarList } from "./constant";
 
 const { Sider } = Layout;
 
-function Sidebar({ collapsed }: TSidebar) {
+function Sidebar() {
   return (
     <Sider
-      width={250}
-      collapsible
+      width={220}
       trigger={null}
-      collapsed={collapsed}
+      breakpoint="lg"
       collapsedWidth="0"
+      style={{ position: "fixed", left: 0, top: 65, bottom: 0 }}
     >
       <Menu
         mode="inline"
         defaultSelectedKeys={["0"]}
-        style={{ paddingTop: 10, height: "calc(100vh - 72px)" }}
+        style={{ paddingTop: 10, height: "100%" }}
       >
         {sidebarList.map(({ path, label, Icon }, index) => (
           <Menu.Item key={index} icon={<Icon />}>
@@ -27,7 +27,5 @@ function Sidebar({ collapsed }: TSidebar) {
     </Sider>
   );
 }
-
-type TSidebar = { collapsed: boolean };
 
 export default Sidebar;

@@ -5,7 +5,7 @@ import { MenuFoldOutlined } from "@ant-design/icons";
 const { Header } = Layout;
 const { useBreakpoint } = Grid;
 
-function HeaderComponent({ toggleSidebar }: THeader) {
+function HeaderComponent() {
   const screens = useBreakpoint();
 
   const handleLogout = () => {
@@ -21,12 +21,11 @@ function HeaderComponent({ toggleSidebar }: THeader) {
             {!screens.lg ? (
               <AntButton
                 type="text"
-                onClick={toggleSidebar}
                 icon={<MenuFoldOutlined />}
                 style={{ marginRight: 10, marginLeft: -30 }}
               />
             ) : null}
-            <h1>Logo</h1>
+            <h1>Revisionary</h1>
           </Row>
         </Col>
         <Col>
