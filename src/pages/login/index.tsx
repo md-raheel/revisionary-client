@@ -27,7 +27,7 @@ function LoginPage() {
         <Col xs={24} sm={24} md={16} lg={12} xl={8} xxl={8}>
           <Card className="login-card">
             <div style={{ textAlign: "center", marginBottom: 30 }}>
-              <h1>Logo</h1>
+              <h1>Revisionary</h1>
             </div>
 
             <Form onFinish={onFinish} initialValues={{ remember: true }}>
