@@ -35,8 +35,9 @@ function SubjectList({
         <AntTable
           isError={isError}
           columns={columns}
-          numberOfSkeletons={6}
           isLoading={isLoading}
+          numberOfSkeletons={8}
+          pagination={{ pageSize: 10 }}
           data={data?.data?.apiData || []}
         />
       </div>
