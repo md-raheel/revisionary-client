@@ -1,8 +1,9 @@
 import "./style.scss";
+import { ReactNode } from "react";
 import { TableLoader } from "@/components";
 import { Card, Result, Table, TableProps } from "antd";
 
-const AntTable = ({
+function AntTable({
   data,
   title,
   isError,
@@ -10,29 +11,31 @@ const AntTable = ({
   tableTitle,
   numberOfSkeletons,
   ...restProps
-}: TAntTable) => (
-  <Card className="table-card">
-    {isError ? (
-      <Result title="" status="500" subTitle="Sorry, something went wrong" />
-    ) : isLoading ? (
-      <TableLoader numberOfSkeletons={numberOfSkeletons} />
-    ) : (
-      <Table
-        size="small"
-        dataSource={data}
-        pagination={{ pageSize: 5 }}
-        title={() => <h3>{tableTitle}</h3>}
-        {...restProps}
-      />
-    )}
-  </Card>
-);
+}: TAntTable) {
+  return (
+    <Card className="table-card">
+      {isError ? (
+        <Result title="" status="500" subTitle="Sorry, something went wrong" />
+      ) : isLoading ? (
+        <TableLoader numberOfSkeletons={numberOfSkeletons} />
+      ) : (
+        <Table
+          size="small"
+          dataSource={data}
+          title={() => tableTitle}
+          pagination={{ pageSize: 5 }}
+          {...restProps}
+        />
+      )}
+    </Card>
+  );
+}
 
 type TAntTable = {
   data?: Array<any>;
   isError?: boolean;
   isLoading?: boolean;
-  tableTitle?: string;
+  tableTitle?: ReactNode;
   numberOfSkeletons?: number;
 } & TableProps<any>;
 

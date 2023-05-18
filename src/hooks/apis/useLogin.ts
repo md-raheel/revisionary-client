@@ -1,7 +1,7 @@
 import { notification } from "antd";
 import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import { TAppUser, TUser } from "@/types/user";
+import { TAppUserFormData, TUser } from "@/types/user";
 
 export default function useLogin() {
   return useMutation((data: TUser) => getAccessToken(data), {
@@ -37,7 +37,7 @@ export default function useLogin() {
 const apiURL = import.meta.env.VITE_API_URL;
 
 const getAccessToken = (data: TUser) => axios.post(`${apiURL}/api/token`, data);
-const getUser = (token: string, data: TAppUser) => {
+const getUser = (token: string, data: TAppUserFormData) => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };

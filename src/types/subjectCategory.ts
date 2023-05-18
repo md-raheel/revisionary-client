@@ -5,3 +5,18 @@ export type TSubjectCategoryData = {
   subjectCategoryCode: string;
   subjectCategoryDescription: string;
 };
+
+export type TSubjectCategoryFormDataOnAdd = {
+  subjectCategoryCode: number;
+  subjectCategoryDescription: number;
+};
+
+export type TSubjectCategoryFormDataOnUpdate = {
+  rowVersion: number;
+  appUserLogId: number;
+  createdUserId: number;
+  subjectCategoryId: number;
+  lastModifiedUserId: number;
+  subjectCategoryCode: number;
+  subjectCategoryDescription: number;
+};

@@ -1,8 +1,16 @@
+import { Col, Row } from "antd";
+import { useState } from "react";
 import { columns } from "./columns";
-import { AntTable } from "@/components";
+import AddRecord from "./AddRecord";
+import { AntButton, AntTable } from "@/components";
 import { TSyllabusAuthorityData } from "@/types/syllabusAuthority";
 
 function SyllabusAuthority({ data, isError, isLoading }: TSyllabusAuthority) {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div>
       <AntTable
@@ -11,17 +19,28 @@ function SyllabusAuthority({ data, isError, isLoading }: TSyllabusAuthority) {
         columns={columns}
         isLoading={isLoading}
         numberOfSkeletons={6}
-        tableTitle="Syllabus Authority / Publisher"
+        tableTitle={
+          <Row align="middle" justify="space-between">
+            <Col>
+              <h3>Syllabus Authority / Publisher</h3>
+            </Col>
+            <Col>
+              <AntButton ghost label="Add" onClick={handleOpen} />
+            </Col>
+          </Row>
+        }
         rowKey={(record: any) => record?.syllabusAuthorityId}
       />
+
+      <AddRecord open={open} handleClose={handleClose} />
     </div>
   );
 }
 
 type TSyllabusAuthority = {
-  data: Array<TSyllabusAuthorityData>;
   isError: boolean;
   isLoading: boolean;
+  data: Array<TSyllabusAuthorityData>;
 };
 
 export default SyllabusAuthority;
