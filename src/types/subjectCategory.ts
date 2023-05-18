@@ -14,7 +14,6 @@ export type TSubjectCategoryFormDataOnAdd = {
 export type TSubjectCategoryFormDataOnUpdate = {
   rowVersion: number;
   appUserLogId: number;
-  createdUserId: number;
   subjectCategoryId: number;
   lastModifiedUserId: number;
   subjectCategoryCode: number;

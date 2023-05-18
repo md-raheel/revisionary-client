@@ -31,16 +31,14 @@ function SubjectList({
         isSyllabusAuthorityListLoading={isSyllabusAuthorityListLoading}
       />
 
-      <div style={{ marginTop: 15 }}>
-        <AntTable
-          isError={isError}
-          columns={columns}
-          isLoading={isLoading}
-          numberOfSkeletons={8}
-          pagination={{ pageSize: 10 }}
-          data={data?.data?.apiData || []}
-        />
-      </div>
+      <AntTable
+        isError={isError}
+        columns={columns}
+        isLoading={isLoading}
+        numberOfSkeletons={8}
+        pagination={{ pageSize: 10 }}
+        data={data?.data?.apiData || []}
+      />
     </Card>
   );
 }
