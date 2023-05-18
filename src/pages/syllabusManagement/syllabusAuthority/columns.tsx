@@ -20,6 +20,7 @@ export const columns: ColumnsType<TSyllabusAuthorityData> = [
       <Tooltip title="Edit">
         <AntButton
           type="text"
+          onClick={() => alert("Coming soon")}
           icon={<EditFilled style={{ color: "#00a148" }} />}
         />
       </Tooltip>
