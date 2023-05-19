@@ -2,7 +2,9 @@ import { Card } from "antd";
 import { columns } from "./columns";
 import SubjectListForm from "./Form";
 import { AntTable } from "@/components";
-import { useGetSubjectList } from "@/hooks/apis/useSubjectList";
+import { useGetSubjectList, useGetSubjectListById } from "@/hooks/apis/useSubjectList";
+import { useEffect, useState } from "react";
+import { isNumber } from "lodash";
 
 function SubjectList({
   classList,
@@ -13,12 +15,15 @@ function SubjectList({
   isSyllabusAuthorityListLoading,
 }: TSubjectList) {
   const { data, isError, isLoading } = useGetSubjectList();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
 
   return (
     <Card title={<h1 style={{ fontWeight: "bold", fontSize: 24, textAlign: "center" }}>Subject List</h1>}>
       <SubjectListForm
         classList={classList}
+        selectedRecordId={selectedRecordId}
         isClassListLoading={isClassListLoading}
+        setSelectedRecordId={setSelectedRecordId}
         subjectCategoryList={subjectCategoryList}
         syllabusAuthorityList={syllabusAuthorityList}
         isSubjectCategoryListLoading={isSubjectCategoryListLoading}
@@ -27,11 +32,11 @@ function SubjectList({
 
       <AntTable
         isError={isError}
-        columns={columns}
         isLoading={isLoading}
         numberOfSkeletons={8}
         pagination={{ pageSize: 10 }}
         data={data?.data?.apiData || []}
+        columns={columns(setSelectedRecordId)}
       />
     </Card>
   );

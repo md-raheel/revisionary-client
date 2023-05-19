@@ -4,7 +4,7 @@ import { ColumnsType } from "antd/es/table";
 import { EditFilled } from "@ant-design/icons";
 import { TSubjectListData } from "@/types/subjectList";
 
-export const columns: ColumnsType<TSubjectListData> = [
+export const columns = (setSelectedRecordId?: any): ColumnsType<TSubjectListData> => [
   {
     title: "Publisher",
     dataIndex: "syllabusAuthorityName",
@@ -24,8 +24,8 @@ export const columns: ColumnsType<TSubjectListData> = [
       <Tooltip title="Edit">
         <AntButton
           type="text"
-          onClick={() => alert("Coming soon")}
           icon={<EditFilled style={{ color: "#00a148" }} />}
+          onClick={() => setSelectedRecordId(record?.subjectListId)}
         />
       </Tooltip>
     ),

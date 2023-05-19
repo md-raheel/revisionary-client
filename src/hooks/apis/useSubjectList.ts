@@ -1,23 +1,47 @@
+import { isNumber } from "lodash";
 import { AxiosError } from "axios";
 import { notification } from "antd";
 import { TAppUserData } from "@/types/user";
 import { useMutation, useQuery } from "react-query";
 import { queryClient } from "@/configs/queryClient";
 import requestManager from "@/configs/requestManager";
-import { TSubjectListFormDataOnAdd } from "@/types/subjectList";
+import { TSubjectListFormDataOnAdd, TSubjectListFormDataOnUpdate } from "@/types/subjectList";
 
 export const useGetSubjectList = () => useQuery("subject-list", getSubjectList);
 
-export const useAddSubjectList = () => {
-  return useMutation((data: TSubjectListFormDataOnAdd) => addSubjectList(data), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("subject-list");
+export const useGetSubjectListById = (SubjectListId?: number | null) => {
+  return useQuery(
+    ["subject-list", SubjectListId],
+    () => {
+      return getSubjectListById(SubjectListId);
     },
-    onError: (error: AxiosError) => {
-      const msg = error.response?.data || "Something went wrong";
-      notification.error({ description: "", message: msg as string });
+    {
+      enabled: false,
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || "Something went wrong";
+        notification.error({ description: "", message: msg as string });
+      },
+    }
+  );
+};
+
+export const useAddUpdateSubjectList = (subjectListId?: number | null) => {
+  return useMutation(
+    (data: TSubjectListFormDataOnAdd | TSubjectListFormDataOnUpdate) => {
+      return addUpdateSubjectList(data, subjectListId);
     },
-  });
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("subject-list");
+        const msg = subjectListId ? "Record updated successfully!" : "Record added successfully!";
+        notification.success({ description: "", message: msg });
+      },
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || "Something went wrong";
+        notification.error({ description: "", message: msg as string });
+      },
+    }
+  );
 };
 
 // services
@@ -33,18 +57,39 @@ const getSubjectList = () => {
   });
 };
 
-const addSubjectList = (data: TSubjectListFormDataOnAdd) => {
+const getSubjectListById = (SubjectListId?: number | null) => {
+  return requestManager.get("/SubjectList/GetById", { params: { SubjectListId } });
+};
+
+const addUpdateSubjectList = (
+  data: TSubjectListFormDataOnAdd | TSubjectListFormDataOnUpdate,
+  subjectListId?: number | null
+) => {
   const appUser: TAppUserData = JSON.parse(localStorage.getItem("app-user") || "{}");
 
-  const dataToSubmit = {
-    subjectListId: 0,
-    campusId: appUser?.campusId,
-    instituteId: appUser?.instituteId,
-    appUserLogId: appUser?.appUserLogId,
-    createdUserId: appUser?.createdUserId,
-    organizationId: appUser?.organizationId,
-    ...data,
-  };
+  let dataToSubmit = {};
+
+  if (isNumber(subjectListId)) {
+    dataToSubmit = {
+      campusId: appUser?.campusId,
+      subjectListId: subjectListId,
+      instituteId: appUser?.instituteId,
+      appUserLogId: appUser?.appUserLogId,
+      organizationId: appUser?.organizationId,
+      lastModifiedUserId: appUser?.lastModifiedUserId,
+      ...data,
+    };
+  } else {
+    dataToSubmit = {
+      subjectListId: 0,
+      campusId: appUser?.campusId,
+      instituteId: appUser?.instituteId,
+      appUserLogId: appUser?.appUserLogId,
+      createdUserId: appUser?.createdUserId,
+      organizationId: appUser?.organizationId,
+      ...data,
+    };
+  }
 
   return requestManager.post("/SubjectList/Save", dataToSubmit);
 };

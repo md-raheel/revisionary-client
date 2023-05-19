@@ -1,37 +1,63 @@
-import { map } from "lodash";
 import { useEffect } from "react";
-import { AntButton } from "@/components";
-import { Col, Input, Row, Select, Form } from "antd";
-import { useAddSubjectList } from "@/hooks/apis/useSubjectList";
-import { TSubjectListFormDataOnAdd } from "@/types/subjectList";
+import { isNumber, map } from "lodash";
+import { RedoOutlined } from "@ant-design/icons";
+import { AntButton, TableLoader } from "@/components";
+import { Col, Input, Row, Select, Form, Tooltip } from "antd";
+import { TSubjectListFormDataOnAdd, TSubjectListFormDataOnUpdate } from "@/types/subjectList";
+import { useAddUpdateSubjectList, useGetSubjectListById } from "@/hooks/apis/useSubjectList";
 
 function SubjectListForm({
   classList,
+  selectedRecordId,
   isClassListLoading,
+  setSelectedRecordId,
   subjectCategoryList,
   syllabusAuthorityList,
   isSubjectCategoryListLoading,
   isSyllabusAuthorityListLoading,
 }: TForm) {
   const [form] = Form.useForm();
-  const { mutate, isSuccess } = useAddSubjectList();
+  const { mutate, isSuccess } = useAddUpdateSubjectList(selectedRecordId);
+  const { data, refetch, isSuccess: isDataByIdSuccess, isLoading } = useGetSubjectListById(selectedRecordId);
 
-  const onFinish = (values: TSubjectListFormDataOnAdd) => mutate(values);
+  const onFinish = (values: TSubjectListFormDataOnAdd | TSubjectListFormDataOnUpdate) => {
+    if (isNumber(selectedRecordId)) {
+      mutate({ ...values, rowVersion: data?.data?.apiData?.rowVersion });
+    } else {
+      mutate(values);
+    }
+  };
+
+  const handleReset = () => {
+    form.resetFields();
+    setSelectedRecordId(null);
+  };
 
   useEffect(() => {
-    if (isSuccess) form.resetFields();
+    if (isSuccess) handleReset();
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (isNumber(selectedRecordId)) {
+      refetch();
+    }
+  }, [selectedRecordId]);
+
+  useEffect(() => {
+    if (isDataByIdSuccess) {
+      form.setFieldsValue(data?.data?.apiData);
+    }
+  }, [isDataByIdSuccess]);
+
+  if (isLoading) {
+    return <TableLoader numberOfSkeletons={4} />;
+  }
 
   return (
     <Form form={form} onFinish={onFinish} initialValues={{ remember: true }}>
       <Form.Item
         name="syllabusAuthorityId"
-        rules={[
-          {
-            required: true,
-            message: "Please input your Syllabus Authority / Publisher!",
-          },
-        ]}
+        rules={[{ required: true, message: "Please input your Syllabus Authority / Publisher!" }]}
       >
         <Select
           showSearch
@@ -46,16 +72,12 @@ function SubjectListForm({
           filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
         />
       </Form.Item>
+
       <Row gutter={10}>
         <Col xs={24} sm={24} md={12} lg={12}>
           <Form.Item
             name="subjectCategoryId"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Subject Category!",
-              },
-            ]}
+            rules={[{ required: true, message: "Please input your Subject Category!" }]}
           >
             <Select
               showSearch
@@ -71,16 +93,9 @@ function SubjectListForm({
             />
           </Form.Item>
         </Col>
+
         <Col xs={24} sm={24} md={12} lg={12}>
-          <Form.Item
-            name="classId"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Class!",
-              },
-            ]}
-          >
+          <Form.Item name="classId" rules={[{ required: true, message: "Please input your Class!" }]}>
             <Select
               showSearch
               size="large"
@@ -98,35 +113,40 @@ function SubjectListForm({
 
         <Col xs={24}>
           <Row gutter={10}>
-            <Col xs={24} md={8} lg={8} xl={7}>
-              <Form.Item
-                name="subjectCode"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your Code!",
-                  },
-                ]}
-              >
+            <Col xs={24} md={8} lg={6} xl={7}>
+              <Form.Item name="subjectCode" rules={[{ required: true, message: "Please input your Code!" }]}>
                 <Input size="large" placeholder="Subject Code" />
               </Form.Item>
             </Col>
-            <Col xs={24} md={12} lg={12} xl={13}>
-              <Form.Item
-                name="subjectName"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your Subject Name!",
-                  },
-                ]}
-              >
+
+            <Col xs={24} md={10} lg={9} xl={10}>
+              <Form.Item name="subjectName" rules={[{ required: true, message: "Please input your Subject Name!" }]}>
                 <Input size="large" placeholder="Subject Name" />
               </Form.Item>
             </Col>
-            <Col xs={24} md={4} lg={4} xl={4}>
+
+            <Col xs={20} md={4} lg={6} xl={5}>
               <Form.Item>
-                <AntButton label="Add" size="large" htmlType="submit" style={{ width: "100%" }} />
+                <AntButton
+                  size="large"
+                  htmlType="submit"
+                  style={{ width: "100%" }}
+                  label={isNumber(selectedRecordId) ? "Update" : "Add"}
+                />
+              </Form.Item>
+            </Col>
+
+            <Col xs={4} md={2} lg={3} xl={2}>
+              <Form.Item>
+                <Tooltip title="Reset form">
+                  <AntButton
+                    ghost
+                    size="large"
+                    onClick={handleReset}
+                    icon={<RedoOutlined />}
+                    style={{ width: "100%" }}
+                  />
+                </Tooltip>
               </Form.Item>
             </Col>
           </Row>
@@ -138,9 +158,11 @@ function SubjectListForm({
 
 type TForm = {
   isClassListLoading: boolean;
+  selectedRecordId?: number | null;
   isSubjectCategoryListLoading: boolean;
   isSyllabusAuthorityListLoading: boolean;
   classList: Array<{ [key: string]: string }>;
+  setSelectedRecordId: (id: number | null) => void;
   subjectCategoryList: Array<{ [key: string]: string }>;
   syllabusAuthorityList: Array<{ [key: string]: string }>;
 };
