@@ -1,46 +1,56 @@
-import { Col, Row } from "antd";
 import { useState } from "react";
 import { columns } from "./columns";
-import AddRecord from "./AddRecord";
+import { Col, Form, Row } from "antd";
+import AddUpdateRecord from "./AddUpdateRecord";
 import { AntButton, AntTable } from "@/components";
 import { TSubjectCategoryData } from "@/types/subjectCategory";
 
 function SubjectCategory({ data, isError, isLoading }: TSubjectCategory) {
+  const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
+  const [selectedRecordId, setSelectedRecordId] = useState<number>();
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = (id?: number) => {
+    setOpen(true);
+    setSelectedRecordId(id);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    form.resetFields();
+    setSelectedRecordId(undefined);
+  };
 
   return (
     <div>
       <AntTable
         data={data}
-        columns={columns}
         isError={isError}
         isLoading={isLoading}
         numberOfSkeletons={6}
+        columns={columns(handleOpen)}
         tableTitle={
           <Row align="middle" justify="space-between">
             <Col>
               <h3>Subject Category</h3>
             </Col>
             <Col>
-              <AntButton ghost label="Add" onClick={handleOpen} />
+              <AntButton ghost label="Add" onClick={() => handleOpen()} />
             </Col>
           </Row>
         }
         rowKey={(record: any) => record?.subjectCategoryId}
       />
 
-      <AddRecord open={open} handleClose={handleClose} />
+      <AddUpdateRecord open={open} form={form} handleClose={handleClose} selectedRecordId={selectedRecordId} />
     </div>
   );
 }
 
 type TSubjectCategory = {
-  data: Array<TSubjectCategoryData>;
   isError: boolean;
   isLoading: boolean;
+  data: Array<TSubjectCategoryData>;
 };
 
 export default SubjectCategory;
