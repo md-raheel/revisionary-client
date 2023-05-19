@@ -1,9 +1,7 @@
 import { useMutation, useQuery } from "react-query";
 import requestManager from "@/configs/requestManager";
 
-export const useGetClass = () => {
-  return useQuery("class", getClass);
-};
+export const useGetClass = () => useQuery("class", getClass);
 
 // services
 const getClass = () => {

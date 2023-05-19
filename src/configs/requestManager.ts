@@ -41,10 +41,7 @@ requestManager.interceptors.response.use(
     const axiosError = error as AxiosError;
     const originalRequest = axiosError.config;
 
-    if (
-      [401, 402].includes(error.response.status) &&
-      originalRequest.url !== "/api/token"
-    ) {
+    if ([401, 402].includes(error.response.status) && originalRequest.url !== "/api/token") {
       logoutRedirect(error);
     }
 

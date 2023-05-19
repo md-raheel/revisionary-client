@@ -13,8 +13,6 @@ export type TSyllabusAuthorityFormDataOnAdd = {
 
 export type TSyllabusAuthorityFormDataOnUpdate = {
   rowVersion: number;
-  appUserLogId: number;
-  lastModifiedUserId: number;
   syllabusAuthorityId: number;
   syllabusAuthorityCode: number;
   syllabusAuthorityName: number;

@@ -13,10 +13,7 @@ function AppRoutes() {
       <Route path="/" element={<LoginPage />} />
 
       <Route element={<PrivateRoute />}>
-        <Route
-          path="syllabus-management"
-          element={<SyllabusManagementPage />}
-        />
+        <Route path="syllabus-management" element={<SyllabusManagementPage />} />
         <Route path="class-management" element={<ClassManagementPage />} />
       </Route>
 

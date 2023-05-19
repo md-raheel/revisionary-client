@@ -11,24 +11,15 @@ export const useGetSubjectCategory = () => {
 };
 
 export const useAddSubjectCategory = () => {
-  return useMutation(
-    (data: TSubjectCategoryFormDataOnAdd) => {
-      return addSubjectCategory(data);
+  return useMutation((data: TSubjectCategoryFormDataOnAdd) => addSubjectCategory(data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("subject-category");
     },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("subject-category");
-      },
-
-      onError: (error: AxiosError) => {
-        const msg = error.response?.data || "Something went wrong";
-        notification.error({
-          description: "",
-          message: msg as string,
-        });
-      },
-    }
-  );
+    onError: (error: AxiosError) => {
+      const msg = error.response?.data || "Something went wrong";
+      notification.error({ description: "", message: msg as string });
+    },
+  });
 };
 
 // services
@@ -37,9 +28,7 @@ const getSubjectCategory = () => {
 };
 
 const addSubjectCategory = (data: TSubjectCategoryFormDataOnAdd) => {
-  const appUser: TAppUserData = JSON.parse(
-    localStorage.getItem("app-user") || "{}"
-  );
+  const appUser: TAppUserData = JSON.parse(localStorage.getItem("app-user") || "{}");
 
   const dataToSubmit = {
     subjectCategoryId: 0,

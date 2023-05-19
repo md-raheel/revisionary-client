@@ -43,9 +43,7 @@ function SubjectListForm({
             value: item?.syllabusAuthorityId,
             label: item?.syllabusAuthorityName,
           }))}
-          filterOption={(input, option) =>
-            (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-          }
+          filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
         />
       </Form.Item>
       <Row gutter={10}>
@@ -69,11 +67,7 @@ function SubjectListForm({
                 value: item?.subjectCategoryId,
                 label: item?.subjectCategoryDescription,
               }))}
-              filterOption={(input, option) =>
-                (option?.label ?? "")
-                  .toLowerCase()
-                  .includes(input.toLowerCase())
-              }
+              filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
             />
           </Form.Item>
         </Col>
@@ -97,11 +91,7 @@ function SubjectListForm({
                 value: item?.classId,
                 label: item?.className,
               }))}
-              filterOption={(input, option) =>
-                (option?.label ?? "")
-                  .toLowerCase()
-                  .includes(input.toLowerCase())
-              }
+              filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
             />
           </Form.Item>
         </Col>
@@ -136,12 +126,7 @@ function SubjectListForm({
             </Col>
             <Col xs={24} md={4} lg={4} xl={4}>
               <Form.Item>
-                <AntButton
-                  label="Add"
-                  size="large"
-                  htmlType="submit"
-                  style={{ width: "100%" }}
-                />
+                <AntButton label="Add" size="large" htmlType="submit" style={{ width: "100%" }} />
               </Form.Item>
             </Col>
           </Row>

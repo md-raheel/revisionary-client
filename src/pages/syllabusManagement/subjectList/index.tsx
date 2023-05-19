@@ -15,13 +15,7 @@ function SubjectList({
   const { data, isError, isLoading } = useGetSubjectList();
 
   return (
-    <Card
-      title={
-        <h1 style={{ fontWeight: "bold", fontSize: 24, textAlign: "center" }}>
-          Subject List
-        </h1>
-      }
-    >
+    <Card title={<h1 style={{ fontWeight: "bold", fontSize: 24, textAlign: "center" }}>Subject List</h1>}>
       <SubjectListForm
         classList={classList}
         isClassListLoading={isClassListLoading}
