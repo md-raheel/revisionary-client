@@ -1,10 +1,9 @@
 import { Card } from "antd";
+import { useState } from "react";
 import { columns } from "./columns";
 import SubjectListForm from "./Form";
 import { AntTable } from "@/components";
-import { useGetSubjectList, useGetSubjectListById } from "@/hooks/apis/useSubjectList";
-import { useEffect, useState } from "react";
-import { isNumber } from "lodash";
+import { useGetSubjectList } from "@/hooks/apis/useSubjectList";
 
 function SubjectList({
   classList,
