@@ -2,8 +2,9 @@ import { useState } from "react";
 import { columns } from "./columns";
 import { Col, Form, Row } from "antd";
 import { AntButton, AntTable } from "@/components";
+import { TClassDivisionData } from "@/types/classDivision";
 
-function ClassDivision({ data, isError, isLoading }: any) {
+function ClassDivision({ data, isError, isLoading }: TClassDivision) {
   const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
   const [selectedRecordId, setSelectedRecordId] = useState<number>();
@@ -42,5 +43,11 @@ function ClassDivision({ data, isError, isLoading }: any) {
     </div>
   );
 }
+
+type TClassDivision = {
+  isError: boolean;
+  isLoading: boolean;
+  data: Array<TClassDivisionData>;
+};
 
 export default ClassDivision;

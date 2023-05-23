@@ -8,15 +8,15 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
 function LoginPage() {
   const navigate = useNavigate();
-  const { mutate, isError, isLoading } = useLogin();
+  const { mutate, isError, isLoading, isSuccess } = useLogin();
 
   const ACCESS_TOKEN = localStorage.getItem("auth");
 
   const onFinish = (values: TUser) => mutate(values);
 
   useEffect(() => {
-    if (ACCESS_TOKEN) navigate("/syllabus-management");
-  }, []);
+    if (isSuccess || ACCESS_TOKEN) navigate("/syllabus-management");
+  }, [isSuccess, ACCESS_TOKEN]);
 
   return (
     <Row justify="center" align="middle" className="login-container">

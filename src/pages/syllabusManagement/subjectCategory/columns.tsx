@@ -1,16 +1,19 @@
 import { AntButton } from "@/components";
-import { ColumnsType } from "antd/es/table";
 import { EditFilled } from "@ant-design/icons";
+import { AntColumnType } from "@/types/antColumn";
 import { TSubjectCategoryData } from "@/types/subjectCategory";
 
-export const columns = (handleOpen: (id: number) => void): ColumnsType<TSubjectCategoryData> => [
+export const columns = (handleOpen: (id: number) => void): AntColumnType<TSubjectCategoryData>[] => [
   {
     title: "Code",
     dataIndex: "subjectCategoryCode",
   },
   {
     title: "Description",
+    searchableInput: true,
     dataIndex: "subjectCategoryDescription",
+    sortDirections: ["ascend", "descend"],
+    sorter: (a, b) => a.subjectCategoryDescription.localeCompare(b.subjectCategoryDescription),
   },
   {
     title: "Action",

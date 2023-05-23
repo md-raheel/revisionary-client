@@ -1,16 +1,19 @@
 import { AntButton } from "@/components";
-import { ColumnsType } from "antd/es/table";
 import { EditFilled } from "@ant-design/icons";
+import { AntColumnType } from "@/types/antColumn";
 import { TSyllabusAuthorityData } from "@/types/syllabusAuthority";
 
-export const columns = (handleOpen: (id: number) => void): ColumnsType<TSyllabusAuthorityData> => [
+export const columns = (handleOpen: (id: number) => void): AntColumnType<TSyllabusAuthorityData>[] => [
   {
     title: "Code",
     dataIndex: "syllabusAuthorityCode",
   },
   {
     title: "Name",
+    searchableInput: true,
     dataIndex: "syllabusAuthorityName",
+    sortDirections: ["ascend", "descend"],
+    sorter: (a, b) => a.syllabusAuthorityName.localeCompare(b.syllabusAuthorityName),
   },
   {
     title: "Action",

@@ -1,4 +1,4 @@
-import { UserOutlined, FileOutlined } from "@ant-design/icons";
+import { UserOutlined, FileOutlined, FileTextOutlined } from "@ant-design/icons";
 
 export const sidebarList = [
   {
@@ -10,5 +10,10 @@ export const sidebarList = [
     Icon: FileOutlined,
     path: "/class-management",
     label: "Class Management",
+  },
+  {
+    Icon: FileTextOutlined,
+    path: "/subject-topics",
+    label: "Subject Topics",
   },
 ];

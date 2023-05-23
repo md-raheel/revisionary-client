@@ -29,6 +29,7 @@ function SubjectCategory({ data, isError, isLoading }: TSubjectCategory) {
         isLoading={isLoading}
         numberOfSkeletons={6}
         columns={columns(handleOpen)}
+        pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: [5, 10, 20, 50, 100] }}
         tableTitle={
           <Row align="middle" justify="space-between">
             <Col>

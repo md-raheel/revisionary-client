@@ -15,7 +15,6 @@ export default function useLogin() {
       getUser(response?.data, { LoginId: data?.username, LoginPassword: data?.password })
         .then((response) => {
           localStorage.setItem("app-user", JSON.stringify(response?.data?.apiData));
-          window.location.href = window.location.origin + "/syllabus-management";
         })
         .catch((error) => console.log(error));
     },

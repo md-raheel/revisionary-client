@@ -14,7 +14,7 @@ function HeaderComponent() {
   const handleClose = () => setOpen(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("auth");
+    localStorage.clear();
     window.location.href = window.location.origin + "/";
   };
 

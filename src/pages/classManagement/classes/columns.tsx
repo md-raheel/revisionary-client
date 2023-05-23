@@ -1,16 +1,17 @@
 import { Tooltip } from "antd";
 import { AntButton } from "@/components";
-import { ColumnsType } from "antd/es/table";
 import { TClassData } from "@/types/classes";
 import { EditFilled } from "@ant-design/icons";
+import { AntColumnType } from "@/types/antColumn";
 
-export const columns = (handleOpen: (id: number) => void): ColumnsType<TClassData> => [
+export const columns = (handleOpen: (id: number) => void): AntColumnType<TClassData>[] => [
   {
     title: "Code",
     dataIndex: "classCode",
   },
   {
     title: "Name",
+    searchableInput: true,
     dataIndex: "className",
   },
   {

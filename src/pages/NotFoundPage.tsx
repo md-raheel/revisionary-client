@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function NotFoundPage() {
   const navigate = useNavigate();
-  const handleClick = () => navigate("/");
+  const handleClick = () => navigate("/syllabus-management");
 
   return (
     <Result

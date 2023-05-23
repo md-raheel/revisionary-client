@@ -4,7 +4,7 @@ const apiURL = import.meta.env.VITE_API_URL;
 const ACCESS_TOKEN = localStorage.getItem("auth");
 
 const logoutRedirect = (error: AxiosError) => {
-  localStorage.removeItem("auth");
+  localStorage.clear();
 
   window.location.href = window.location.origin + "/";
   return Promise.reject(error);

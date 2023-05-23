@@ -1,12 +1,15 @@
 import { AntButton } from "@/components";
-import { ColumnsType } from "antd/es/table";
 import { EditFilled } from "@ant-design/icons";
+import { AntColumnType } from "@/types/antColumn";
 import { TSubjectListData } from "@/types/subjectList";
 
-export const columns = (setSelectedRecordId?: any): ColumnsType<TSubjectListData> => [
+export const columns = (setSelectedRecordId?: any): AntColumnType<TSubjectListData>[] => [
   {
     title: "Publisher",
+    searchableInput: true,
     dataIndex: "syllabusAuthorityName",
+    sortDirections: ["ascend", "descend"],
+    sorter: (a, b) => a.syllabusAuthorityName.localeCompare(b.syllabusAuthorityName),
   },
   {
     title: "Code",
@@ -14,7 +17,10 @@ export const columns = (setSelectedRecordId?: any): ColumnsType<TSubjectListData
   },
   {
     title: "Subject Name",
+    searchableInput: true,
     dataIndex: "subjectName",
+    sortDirections: ["ascend", "descend"],
+    sorter: (a, b) => a.subjectName.localeCompare(b.subjectName),
   },
   {
     title: "Action",
