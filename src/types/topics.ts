@@ -1,7 +1,7 @@
 export type TTopicsData = {
   unitTopicId: number;
-  unitTopicNo: number;
-  unitTopicDescription: string;
+  unitTopicNo: string;
   subjectName: string;
   classSubDivision: string;
+  unitTopicDescription: string;
 };

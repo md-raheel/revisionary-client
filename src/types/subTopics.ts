@@ -1,6 +1,6 @@
 export type TSubTopicsData = {
   subTopicId: number;
-  subTopicNo: number;
+  subTopicNo: string;
   subTopicDescription: string;
   unitTopicDescription: string;
 };
