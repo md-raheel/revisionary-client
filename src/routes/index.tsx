@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 
 const LoginPage = lazy(() => import("@/pages/login"));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
+const SubjectTopicsPage = lazy(() => import("@/pages/subjectTopics"));
 const ClassManagementPage = lazy(() => import("@/pages/classManagement"));
 const SyllabusManagementPage = lazy(() => import("@/pages/syllabusManagement"));
 
@@ -15,6 +16,7 @@ function AppRoutes() {
       <Route element={<PrivateRoute />}>
         <Route path="syllabus-management" element={<SyllabusManagementPage />} />
         <Route path="class-management" element={<ClassManagementPage />} />
+        <Route path="subject-topics" element={<SubjectTopicsPage />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
