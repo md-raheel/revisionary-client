@@ -7,7 +7,7 @@ import { queryClient } from "@/configs/queryClient";
 import requestManager from "@/configs/requestManager";
 import { TClassFormDataOnAdd, TClassFormDataOnUpdate } from "@/types/classes";
 
-export const useGetClass = () => useQuery("class", getClass);
+export const useGetClass = () => useQuery("classes", getClass);
 
 export const useGetClassById = (ClassId?: number) => {
   return useQuery(
@@ -32,7 +32,7 @@ export const useAddUpdateClass = (classId?: number) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("class");
+        queryClient.invalidateQueries("classes");
         const msg = classId ? "Record updated successfully!" : "Record added successfully!";
         notification.success({ description: "", message: msg });
       },

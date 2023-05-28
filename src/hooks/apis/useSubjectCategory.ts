@@ -7,7 +7,7 @@ import { queryClient } from "@/configs/queryClient";
 import requestManager from "@/configs/requestManager";
 import { TSubjectCategoryFormDataOnAdd, TSubjectCategoryFormDataOnUpdate } from "@/types/subjectCategory";
 
-export const useGetSubjectCategory = () => useQuery("subject-category", getSubjectCategory);
+export const useGetSubjectCategory = () => useQuery("subject-categories", getSubjectCategory);
 
 export const useGetSubjectCategoryById = (SubjectCategoryId?: number) => {
   return useQuery(
@@ -32,7 +32,7 @@ export const useAddUpdateSubjectCategory = (subjectCategoryId?: number) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("subject-category");
+        queryClient.invalidateQueries("subject-categories");
         const msg = subjectCategoryId ? "Record updated successfully!" : "Record added successfully!";
         notification.success({ description: "", message: msg });
       },

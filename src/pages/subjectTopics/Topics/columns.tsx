@@ -1,13 +1,20 @@
 import { AntButton } from "@/components";
+import { TTopicsData } from "@/types/topics";
 import { EditFilled } from "@ant-design/icons";
 import { AntColumnType } from "@/types/antColumn";
-import { TSubTopicsData } from "@/types/subTopics";
 
-export const columns = (handleOpen: (id: number) => void): AntColumnType<TSubTopicsData>[] => [
+export const columns = (handleOpen: (id: number) => void): AntColumnType<TTopicsData>[] => [
+  {
+    searchableInput: true,
+    title: "Class Division",
+    dataIndex: "classSubDivision",
+    sortDirections: ["ascend", "descend"],
+    sorter: (a, b) => a.classSubDivision.localeCompare(b.classSubDivision),
+  },
   {
     title: "Subject Name",
     searchableInput: true,
-    dataIndex: "unitTopicDescription",
+    dataIndex: "subjectName",
     sortDirections: ["ascend", "descend"],
     sorter: (a, b) => a.unitTopicDescription.localeCompare(b.unitTopicDescription),
   },
@@ -29,7 +36,7 @@ export const columns = (handleOpen: (id: number) => void): AntColumnType<TSubTop
       <AntButton
         type="text"
         icon={<EditFilled style={{ color: "#00a148" }} />}
-        onClick={() => handleOpen(record?.subTopicId)}
+        onClick={() => handleOpen(record?.unitTopicId)}
       />
     ),
   },

@@ -11,7 +11,7 @@ export const useGetSubjectList = () => useQuery("subject-list", getSubjectList);
 
 export const useGetSubjectListById = (SubjectListId?: number | null) => {
   return useQuery(
-    ["subject-list", SubjectListId],
+    ["subject", SubjectListId],
     () => {
       return getSubjectListById(SubjectListId);
     },

@@ -7,7 +7,7 @@ import { queryClient } from "@/configs/queryClient";
 import requestManager from "@/configs/requestManager";
 import { TClassDivisionFormDataOnAdd, TClassDivisionFormDataOnUpdate } from "@/types/classDivision";
 
-export const useGetClassDivision = () => useQuery("class-division", getClassDivision);
+export const useGetClassDivision = () => useQuery("class-divisions", getClassDivision);
 
 export const useGetClassDivisionById = (ClassSubDivisionId?: number) => {
   return useQuery(
@@ -32,7 +32,7 @@ export const useAddUpdateClassDivision = (classSubDivisionId?: number) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("class-division");
+        queryClient.invalidateQueries("class-divisions");
         const msg = classSubDivisionId ? "Record updated successfully!" : "Record added successfully!";
         notification.success({ description: "", message: msg });
       },

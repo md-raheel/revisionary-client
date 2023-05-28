@@ -2,6 +2,7 @@ import { useState } from "react";
 import { columns } from "./columns";
 import { Col, Form, Row } from "antd";
 import { TTopicsData } from "@/types/topics";
+import AddUpdateRecord from "./AddUpdateRecord";
 import { AntButton, AntTable } from "@/components";
 
 function Topics({ data, isError, isLoading }: TTopics) {
@@ -41,6 +42,8 @@ function Topics({ data, isError, isLoading }: TTopics) {
         }
         rowKey={(record: any) => record?.unitTopicId}
       />
+
+      <AddUpdateRecord open={open} form={form} handleClose={handleClose} selectedRecordId={selectedRecordId} />
     </div>
   );
 }

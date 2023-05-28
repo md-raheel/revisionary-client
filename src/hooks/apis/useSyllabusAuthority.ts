@@ -7,7 +7,7 @@ import { queryClient } from "@/configs/queryClient";
 import requestManager from "@/configs/requestManager";
 import { TSyllabusAuthorityFormDataOnAdd, TSyllabusAuthorityFormDataOnUpdate } from "@/types/syllabusAuthority";
 
-export const useGetSyllabusAuthority = () => useQuery("syllabus-authority", getSyllabusAuthority);
+export const useGetSyllabusAuthority = () => useQuery("syllabus-authorities", getSyllabusAuthority);
 
 export const useGetSyllabusAuthorityById = (SyllabusAuthorityId?: number) => {
   return useQuery(
@@ -32,7 +32,7 @@ export const useAddUpdateSyllabusAuthority = (syllabusAuthorityId?: number) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("syllabus-authority");
+        queryClient.invalidateQueries("syllabus-authorities");
         const msg = syllabusAuthorityId ? "Record updated successfully!" : "Record added successfully!";
         notification.success({ description: "", message: msg });
       },
