@@ -5,6 +5,18 @@ export type TClassDivisionData = {
   classSubDivisionCode: string;
 };
 
-export type TClassDivisionFormDataOnAdd = {};
+export type TClassDivisionFormDataOnAdd = {
+  classId: number;
+  classSubDivisionCode: string;
+  effectiveFrom: Date | string;
+  classSubDivisionDescription: string;
+};
 
-export type TClassDivisionFormDataOnUpdate = {};
+export type TClassDivisionFormDataOnUpdate = {
+  classId: number;
+  rowVersion: number;
+  classSubDivisionId: number;
+  classSubDivisionCode: string;
+  effectiveFrom: Date | string;
+  classSubDivisionDescription: string;
+};

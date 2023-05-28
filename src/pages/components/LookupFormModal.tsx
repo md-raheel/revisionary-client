@@ -6,6 +6,8 @@ import { Col, Form, FormInstance, Modal, Row } from "antd";
 function LookupFormModal({
   open,
   form,
+  width,
+  title,
   onFinish,
   children,
   isLoading,
@@ -19,10 +21,11 @@ function LookupFormModal({
     <Modal
       open={open}
       footer={null}
+      width={width}
+      title={title}
       onOk={handleClose}
       maskClosable={false}
       onCancel={handleClose}
-      title="Syllabus Authority / Publisher"
     >
       {isDataLoading || isFetching ? (
         <TableLoader numberOfSkeletons={3} />
@@ -66,9 +69,11 @@ function LookupFormModal({
 
 type TLookupFormModal = {
   open: boolean;
+  title?: ReactNode;
   isLoading?: boolean;
   children?: ReactNode;
   isFetching?: boolean;
+  width?: string | number;
   form: FormInstance<any>;
   isDataLoading?: boolean;
   handleClose: VoidFunction;

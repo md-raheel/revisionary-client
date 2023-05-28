@@ -19,8 +19,10 @@ function ClassManagement() {
         <Classes isError={isError} isLoading={isLoading} data={data?.data?.apiData || []} />
         <br />
         <ClassDivision
+          isClassLoading={isLoading}
           isError={isClassDivisionError}
           isLoading={isClassDivisionLoading}
+          classData={data?.data?.apiData || []}
           data={classDivisionData?.data?.apiData || []}
         />
       </Col>

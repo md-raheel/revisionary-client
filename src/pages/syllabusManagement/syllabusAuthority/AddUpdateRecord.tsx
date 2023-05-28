@@ -54,6 +54,7 @@ function AddUpdateRecord({ open, form, handleClose, selectedRecordId }: TAddUpda
       handleClose={handleClose}
       isDataLoading={isDataLoading}
       selectedRecordId={selectedRecordId}
+      title="Syllabus Authority / Publisher"
       handleSaveMoreClick={() => setBtnClicked(true)}
     >
       <Row gutter={10} style={{ marginTop: 20 }}>

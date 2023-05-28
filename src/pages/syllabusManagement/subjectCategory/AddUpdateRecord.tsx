@@ -51,6 +51,7 @@ function AddUpdateRecord({ open, form, handleClose, selectedRecordId }: TAddUpda
       onFinish={onFinish}
       isLoading={isLoading}
       isFetching={isFetching}
+      title="Subject Category"
       handleClose={handleClose}
       isDataLoading={isDataLoading}
       selectedRecordId={selectedRecordId}

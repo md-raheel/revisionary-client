@@ -48,6 +48,7 @@ function AddUpdateRecord({ open, form, handleClose, selectedRecordId }: TAddUpda
     <LookupFormModal
       open={open}
       form={form}
+      title="Classes"
       onFinish={onFinish}
       isLoading={isLoading}
       isFetching={isFetching}
@@ -64,7 +65,7 @@ function AddUpdateRecord({ open, form, handleClose, selectedRecordId }: TAddUpda
         </Col>
 
         <Col xs={16}>
-          <Form.Item name="className" rules={[{ required: true, message: "Please input your Description!" }]}>
+          <Form.Item name="className" rules={[{ required: true, message: "Please input your Name!" }]}>
             <Input size="large" placeholder="Name" />
           </Form.Item>
         </Col>
