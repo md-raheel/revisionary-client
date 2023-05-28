@@ -2,6 +2,7 @@ import { useState } from "react";
 import { columns } from "./columns";
 import { Col, Form, Row } from "antd";
 import { TClassData } from "@/types/classes";
+import AddUpdateRecord from "./AddUpdateRecord";
 import { AntButton, AntTable } from "@/components";
 
 function Classes({ data, isError, isLoading }: TClasses) {
@@ -41,6 +42,8 @@ function Classes({ data, isError, isLoading }: TClasses) {
         }
         rowKey={(record: any) => record?.classId}
       />
+
+      <AddUpdateRecord open={open} form={form} handleClose={handleClose} selectedRecordId={selectedRecordId} />
     </div>
   );
 }

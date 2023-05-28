@@ -8,3 +8,15 @@ export type TClassData = {
   organizationName: string;
   createdOn: string | Date;
 };
+
+export type TClassFormDataOnAdd = {
+  classCode: string;
+  className: string;
+};
+
+export type TClassFormDataOnUpdate = {
+  classId: number;
+  classCode: string;
+  className: string;
+  rowVersion: number;
+};
