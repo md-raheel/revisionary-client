@@ -11,7 +11,13 @@ function SubjectTopics() {
     <div>
       <Topics isError={isError} isLoading={isLoading} data={data?.data?.apiData || []} />
       <br />
-      <SubTopics isError={isSubTError} isLoading={isSubTLoading} data={subTData?.data?.apiData || []} />
+      <SubTopics
+        isError={isSubTError}
+        isLoading={isSubTLoading}
+        isTopicsLoading={isLoading}
+        data={subTData?.data?.apiData || []}
+        topicsData={data?.data?.apiData || []}
+      />
     </div>
   );
 }

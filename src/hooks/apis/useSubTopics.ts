@@ -1,7 +1,48 @@
 import { useMutation, useQuery } from "react-query";
 import requestManager from "@/configs/requestManager";
+import { notification } from "antd";
+import { AxiosError } from "axios";
+import { TSubTopicFormDataOnAdd, TSubTopicFormDataOnUpdate } from "@/types/subTopics";
+import { isNumber } from "lodash";
+import { queryClient } from "@/configs/queryClient";
+import { TAppUserData } from "@/types/user";
 
 export const useGetSubTopics = () => useQuery("sub-topics", getSubTopics);
+
+export const useGetTopicById = (SubTopicId?: number) => {
+  return useQuery(
+    ["sub-topic", SubTopicId],
+    () => {
+      return getSubTopicById(SubTopicId);
+    },
+    {
+      enabled: false,
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || "Something went wrong";
+        notification.error({ description: "", message: msg as string });
+      },
+    }
+  );
+};
+
+export const useAddUpdateSubTopic = (subTopicId?: number) => {
+  return useMutation(
+    (data: TSubTopicFormDataOnAdd | TSubTopicFormDataOnUpdate) => {
+      return addUpdateSubTopic(data, subTopicId);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("sub-topics");
+        const msg = subTopicId ? "Record updated successfully!" : "Record added successfully!";
+        notification.success({ description: "", message: msg });
+      },
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || "Something went wrong";
+        notification.error({ description: "", message: msg as string });
+      },
+    }
+  );
+};
 
 // services
 const getSubTopics = () => {
@@ -14,4 +55,38 @@ const getSubTopics = () => {
       OrganizationId: appUser?.organizationId,
     },
   });
+};
+
+const getSubTopicById = (SubTopicId?: number) => {
+  return requestManager.get("/SubTopic/GetById", { params: { SubTopicId } });
+};
+
+const addUpdateSubTopic = (data: TSubTopicFormDataOnAdd | TSubTopicFormDataOnUpdate, subTopicId?: number) => {
+  const appUser: TAppUserData = JSON.parse(localStorage.getItem("app-user") || "{}");
+
+  let dataToSubmit = {};
+
+  if (isNumber(subTopicId)) {
+    dataToSubmit = {
+      subTopicId: subTopicId,
+      campusId: appUser?.campusId,
+      instituteId: appUser?.instituteId,
+      appUserLogId: appUser?.appUserLogId,
+      organizationId: appUser?.organizationId,
+      lastModifiedUserId: appUser?.lastModifiedUserId,
+      ...data,
+    };
+  } else {
+    dataToSubmit = {
+      subTopicId: 0,
+      campusId: appUser?.campusId,
+      instituteId: appUser?.instituteId,
+      appUserLogId: appUser?.appUserLogId,
+      createdUserId: appUser?.createdUserId,
+      organizationId: appUser?.organizationId,
+      ...data,
+    };
+  }
+
+  return requestManager.post("/SubTopic/Save", dataToSubmit);
 };
