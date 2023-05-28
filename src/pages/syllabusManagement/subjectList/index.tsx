@@ -3,7 +3,7 @@ import { useState } from "react";
 import { columns } from "./columns";
 import SubjectListForm from "./Form";
 import { AntTable } from "@/components";
-import { useGetSubjectList } from "@/hooks/apis/useSubjectList";
+import { useGetSubjectLists } from "@/hooks/apis/useSubjectList";
 
 function SubjectList({
   classList,
@@ -13,7 +13,7 @@ function SubjectList({
   isSubjectCategoryListLoading,
   isSyllabusAuthorityListLoading,
 }: TSubjectList) {
-  const { data, isError, isLoading } = useGetSubjectList();
+  const { data, isError, isLoading } = useGetSubjectLists();
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
 
   return (

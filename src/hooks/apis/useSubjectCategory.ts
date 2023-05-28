@@ -7,7 +7,7 @@ import { queryClient } from "@/configs/queryClient";
 import requestManager from "@/configs/requestManager";
 import { TSubjectCategoryFormDataOnAdd, TSubjectCategoryFormDataOnUpdate } from "@/types/subjectCategory";
 
-export const useGetSubjectCategory = () => useQuery("subject-categories", getSubjectCategory);
+export const useGetSubjectCategories = () => useQuery("subject-categories", getSubjectCategory);
 
 export const useGetSubjectCategoryById = (SubjectCategoryId?: number) => {
   return useQuery(

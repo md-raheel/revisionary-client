@@ -7,13 +7,29 @@ import { queryClient } from "@/configs/queryClient";
 import requestManager from "@/configs/requestManager";
 import { TSyllabusAuthorityFormDataOnAdd, TSyllabusAuthorityFormDataOnUpdate } from "@/types/syllabusAuthority";
 
-export const useGetSyllabusAuthority = () => useQuery("syllabus-authorities", getSyllabusAuthority);
+export const useGetSyllabusAuthorities = () => useQuery("syllabus-authorities", getSyllabusAuthority);
 
 export const useGetSyllabusAuthorityById = (SyllabusAuthorityId?: number) => {
   return useQuery(
     ["syllabus-authority", SyllabusAuthorityId],
     () => {
       return getSyllabusAuthorityById(SyllabusAuthorityId);
+    },
+    {
+      enabled: false,
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || "Something went wrong";
+        notification.error({ description: "", message: msg as string });
+      },
+    }
+  );
+};
+
+export const useGetSyllabusAuthoritiesByClassId = (ClassId?: number) => {
+  return useQuery(
+    ["syllabus-authority-class-based", ClassId],
+    () => {
+      return getSyllabusAuthoritiesByClassId(ClassId);
     },
     {
       enabled: false,
@@ -76,4 +92,17 @@ const addUpdateSyllabusAuthority = (
   }
 
   return requestManager.post("/SyllabusAuthority/Save", dataToSubmit);
+};
+
+const getSyllabusAuthoritiesByClassId = (ClassId?: number) => {
+  const appUser: TAppUserData = JSON.parse(localStorage.getItem("app-user") || "{}");
+
+  return requestManager.get("/SyllabusAuthority/GetSyllabusAuthoritiesByClassId", {
+    params: {
+      ClassId,
+      CampusId: appUser?.campusId,
+      InstituteId: appUser?.instituteId,
+      OrganizationId: appUser?.organizationId,
+    },
+  });
 };

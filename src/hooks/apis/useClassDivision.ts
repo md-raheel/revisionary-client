@@ -7,7 +7,7 @@ import { queryClient } from "@/configs/queryClient";
 import requestManager from "@/configs/requestManager";
 import { TClassDivisionFormDataOnAdd, TClassDivisionFormDataOnUpdate } from "@/types/classDivision";
 
-export const useGetClassDivision = () => useQuery("class-divisions", getClassDivision);
+export const useGetClassDivisions = () => useQuery("class-divisions", getClassDivision);
 
 export const useGetClassDivisionById = (ClassSubDivisionId?: number) => {
   return useQuery(

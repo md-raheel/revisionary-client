@@ -7,7 +7,7 @@ import { queryClient } from "@/configs/queryClient";
 import requestManager from "@/configs/requestManager";
 import { TClassFormDataOnAdd, TClassFormDataOnUpdate } from "@/types/classes";
 
-export const useGetClass = () => useQuery("classes", getClass);
+export const useGetClasses = () => useQuery("classes", getClass);
 
 export const useGetClassById = (ClassId?: number) => {
   return useQuery(

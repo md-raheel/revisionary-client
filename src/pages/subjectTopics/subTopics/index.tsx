@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { columns } from "./columns";
 import { Col, Form, Row } from "antd";
+import { TTopicsData } from "@/types/topics";
 import AddUpdateRecord from "./AddUpdateRecord";
 import { TSubTopicsData } from "@/types/subTopics";
 import { AntButton, AntTable } from "@/components";
-import { TTopicsData } from "@/types/topics";
 
 function SubTopics({ data, isError, isLoading, topicsData, isTopicsLoading }: TSubTopics) {
   const [form] = Form.useForm();

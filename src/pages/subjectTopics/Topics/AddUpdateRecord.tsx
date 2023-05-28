@@ -1,16 +1,16 @@
 import { isNumber, map } from "lodash";
 import { useEffect, useState } from "react";
-import { useGetSubjectList } from "@/hooks/apis/useSubjectList";
+import { useGetSubjectLists } from "@/hooks/apis/useSubjectList";
 import LookupFormModal from "@/pages/components/LookupFormModal";
 import { Col, Form, FormInstance, Input, Row, Select } from "antd";
-import { useGetClassDivision } from "@/hooks/apis/useClassDivision";
+import { useGetClassDivisions } from "@/hooks/apis/useClassDivision";
 import { useAddUpdateTopic, useGetTopicById } from "@/hooks/apis/useTopics";
 import { TTopicFormDataOnAdd, TTopicFormDataOnUpdate } from "@/types/topics";
 
 function AddUpdateRecord({ open, form, handleClose, selectedRecordId }: TAddUpdateRecord) {
   const [btnClicked, setBtnClicked] = useState(false);
-  const { data: subjectListData, isLoading: isSubjectListLoading } = useGetSubjectList();
-  const { data: classDivisionData, isLoading: isClassDivisionLoading } = useGetClassDivision();
+  const { data: subjectListData, isLoading: isSubjectListLoading } = useGetSubjectLists();
+  const { data: classDivisionData, isLoading: isClassDivisionLoading } = useGetClassDivisions();
 
   const { mutate, isLoading, isSuccess } = useAddUpdateTopic(selectedRecordId);
   const {
