@@ -13,7 +13,6 @@ function AddUpdateRecord({ open, form, handleClose, classData, isClassLoading, s
   const {
     data,
     refetch,
-    isStale,
     isFetching,
     isSuccess: isDataSuccess,
     isLoading: isDataLoading,
@@ -41,11 +40,11 @@ function AddUpdateRecord({ open, form, handleClose, classData, isClassLoading, s
   }, [selectedRecordId]);
 
   useEffect(() => {
-    if (isDataSuccess && !isStale) {
+    if (isDataSuccess) {
       const date = new Date(data?.data?.apiData?.effectiveFrom);
       form.setFieldsValue({ ...data?.data?.apiData, effectiveFrom: moment(date) });
     }
-  }, [isDataSuccess, isStale]);
+  }, [isDataSuccess]);
 
   return (
     <LookupFormModal

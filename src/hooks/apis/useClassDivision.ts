@@ -16,6 +16,8 @@ export const useGetClassDivisionById = (ClassSubDivisionId?: number) => {
       return getClassDivisionId(ClassSubDivisionId);
     },
     {
+      cacheTime: 0,
+      staleTime: 0,
       enabled: false,
       onError: (error: AxiosError) => {
         const msg = error.response?.data || "Something went wrong";

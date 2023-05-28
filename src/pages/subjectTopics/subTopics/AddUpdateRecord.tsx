@@ -12,7 +12,6 @@ function AddUpdateRecord({ open, form, handleClose, topicsData, isTopicsLoading,
   const {
     data,
     refetch,
-    isStale,
     isFetching,
     isSuccess: isDataSuccess,
     isLoading: isDataLoading,
@@ -40,10 +39,10 @@ function AddUpdateRecord({ open, form, handleClose, topicsData, isTopicsLoading,
   }, [selectedRecordId]);
 
   useEffect(() => {
-    if (isDataSuccess && !isStale) {
+    if (isDataSuccess) {
       form.setFieldsValue(data?.data?.apiData);
     }
-  }, [isDataSuccess, isStale]);
+  }, [isDataSuccess]);
 
   return (
     <LookupFormModal
